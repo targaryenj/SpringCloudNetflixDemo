@@ -18,4 +18,10 @@ public class ImageController {
 	public Iterable<Image> getAllImage(){
 		return imageRepository.findAll();
 	}
+	
+	@GetMapping(path="/find")
+	@ResponseBody
+	public Image findImage(long id){
+		return imageRepository.findOne(id);
+	}
 }
