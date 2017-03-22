@@ -7,11 +7,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @SpringBootApplication
 @EnableEurekaServer
-public class Application extends WebMvcConfigurerAdapter {
+public class EurekaServerApplication extends WebMvcConfigurerAdapter {
 
 
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(EurekaServerApplication.class, args);
 	}
 
 }

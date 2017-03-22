@@ -11,25 +11,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @EnableDiscoveryClient
 @SpringBootApplication
 @RestController
-public class SCNClientApplication {
-	
+public class EurekaClientApplication {
+
 	@Autowired
 	private DiscoveryClient client;
-	
-	@RequestMapping(value="/add",method= RequestMethod.GET)
-	public Integer add(@RequestParam Integer a,@RequestParam Integer b) {
+
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public Integer add(@RequestParam Integer a, @RequestParam Integer b) {
 		ServiceInstance instance = client.getLocalServiceInstance();
-		int result = a+b;
-		System.out.println("/add,Host:" + instance.getHost() + ", service_id:" +  instance.getServiceId());
+		int result = a + b;
+		System.out.println("/add,Host:" + instance.getHost() + ", service_id:" + instance.getServiceId());
 		return result;
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(SCNClientApplication.class, args);
+		SpringApplication.run(EurekaClientApplication.class, args);
 	}
 
 }
