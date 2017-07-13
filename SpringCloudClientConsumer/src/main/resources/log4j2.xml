@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="OFF">
+    <properties>
+         <property name="LOG_HOME">../logs/osa-api</property>
+         <property name="ERROR_FILE_NAME">osa-api_error</property>
+         <property name="DEBUG_FILE_NAME">osa-api_debug</property>
+     </properties>
+     
+	<appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+	    <!-- 错误日志 -->
+	    <RollingRandomAccessFile name="error_log"  fileName="${LOG_HOME}/${ERROR_FILE_NAME}.log"  immediateFlush="true"  ignoreExceptions="false"  
+	        filePattern="${LOG_HOME}/$${date:yyyy-MM}/${ERROR_FILE_NAME}-%d{yyyy-MM-dd}-%i.log.gz">
+			
+	         <ThresholdFilter level="ERROR" />
+             <PatternLayout  charset="UTF-8"  pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n" />
+             <Policies>
+               <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="50 MB" />
+             </Policies>
+           <DefaultRolloverStrategy max="20" />
+        </RollingRandomAccessFile>
+
+	    <!-- debug日志 -->
+	    <RollingRandomAccessFile name="debug_log"  fileName="${LOG_HOME}/${DEBUG_FILE_NAME}.log"  immediateFlush="true"  ignoreExceptions="false"  
+	        filePattern="${LOG_HOME}/$${date:yyyy-MM}/${DEBUG_FILE_NAME}-%d{yyyy-MM-dd}-%i.log.gz">
+           
+	        <Filters>
+		         <ThresholdFilter level="TRACE" onMatch="ACCEPT" onMismatch="DENY"/>
+		         <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+             <PatternLayout  charset="UTF-8"  pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n" />
+             <Policies>
+               <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="50 MB" />
+             </Policies>
+           <DefaultRolloverStrategy max="20" />
+        </RollingRandomAccessFile> 
+	</appenders>
+	
+	<loggers>
+	    <!-- app -->
+		<logger name="com.erongdu"  level="trace" additivity="false">
+		    <appender-ref ref="Console" />
+			<appender-ref ref="error_log" />
+			<appender-ref ref="debug_log" />
+		</logger>
+		
+		<!-- disable package config-->
+		<logger name="org.springframework"  level="off" />
+		<logger name="org.mybatis"  level="off"/>
+		<logger name="org.apache.ibatis"  level="off" />
+		<logger name="org.apache.http"  level="off" />
+		<logger name="com.aliyun.oss"  level="off" />
+		<logger name="org.quartz"  level="off"/>
+		<logger name="org.apache.shiro"  level="off" />
+		<logger name="org.hibernate"  level="off"/>
+		<logger name="net.sf.ehcache"  level="off"/>
+		<logger name="springfox.documentation"  level="off"/>
+		<logger name="com.erongdu"  level="ERROR"/>
+		<logger name="org.elasticsearch" level="off"/>
+		<logger name="org.apache.commons.beanutils" level="off"/>
+		
+
+		<!-- mybatis -->
+		<logger name="tk.mybatis"  level="trace" additivity="true">
+		    <appender-ref ref="Console" />
+			<appender-ref ref="error_log" />
+			<appender-ref ref="debug_log" />
+		</logger>
+		
+		<root level="TRACE">
+			<appender-ref ref="Console" />
+			<appender-ref ref="error_log" />
+			<appender-ref ref="debug_log" />
+		</root>
+	</loggers>
+</configuration>  
