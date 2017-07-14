@@ -22,12 +22,12 @@ public class MybatisDataSource {
 	@Autowired
 	private DataSourceProperties dataSourceProperties;
 	//mybaits mapper xml搜索路径
-	private final static String mapperLocations="classpath:mybatis_xml/*.xml"; 
+	private final static String mapperLocations = "classpath:mybatis_xml/*.xml"; 
 
 	private org.apache.tomcat.jdbc.pool.DataSource pool;
 	
 	@Bean(destroyMethod = "close")
-	public DataSource dataSource() {		
+	public DataSource dataSource() {
 		DataSourceProperties config = dataSourceProperties;		
 		this.pool = new org.apache.tomcat.jdbc.pool.DataSource();		
 		this.pool.setDriverClassName(config.getDriverClassName());
